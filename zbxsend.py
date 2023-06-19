@@ -39,7 +39,7 @@ def send_to_zabbix(metrics, zabbix_host='127.0.0.1', zabbix_port=10051, timeout=
            '}') % (',\n'.join(metrics_data))
     
     data_len = struct.pack('<Q', len(json_data))
-    packet = 'ZBXD\1' + data_len + json_data
+    packet = b'ZBXD\1' + data_len + json_data.encode()
     try:
         zabbix = socket.socket()
         zabbix.connect((zabbix_host, zabbix_port))
